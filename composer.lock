@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bf3938fd9ffb883c6d0d9bf54334662",
+    "content-hash": "d401d6408796d104a278f7210baf782e",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -114,16 +114,16 @@
         },
         {
             "name": "leonickl/pxp-core",
-            "version": "v4.1.4",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leonickl/pxp-core.git",
-                "reference": "aa66ce9b74d06d5f9ba0963fb980777e9c8dabb1"
+                "reference": "5c00901d5d3bbb749d54d8c6eb1b095d67b6e942"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leonickl/pxp-core/zipball/aa66ce9b74d06d5f9ba0963fb980777e9c8dabb1",
-                "reference": "aa66ce9b74d06d5f9ba0963fb980777e9c8dabb1",
+                "url": "https://api.github.com/repos/leonickl/pxp-core/zipball/5c00901d5d3bbb749d54d8c6eb1b095d67b6e942",
+                "reference": "5c00901d5d3bbb749d54d8c6eb1b095d67b6e942",
                 "shasum": ""
             },
             "require": {
@@ -155,9 +155,9 @@
             "description": "Core functionality for leonickl/pxp",
             "support": {
                 "issues": "https://github.com/leonickl/pxp-core/issues",
-                "source": "https://github.com/leonickl/pxp-core/tree/v4.1.4"
+                "source": "https://github.com/leonickl/pxp-core/tree/v5.0.0"
             },
-            "time": "2026-05-22T14:43:35+00:00"
+            "time": "2026-08-02T14:53:29+00:00"
         },
         {
             "name": "nesbot/carbon",

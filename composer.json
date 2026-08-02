@@ -19,7 +19,7 @@
     "require": {
         "phpmailer/phpmailer": "^7.0",
         "nesbot/carbon": "^3.11",
-        "leonickl/pxp-core": "*"
+        "leonickl/pxp-core": "^5.0"
     },
     "require-dev": {
         "laravel/pint": "^1.24",
