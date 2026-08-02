@@ -1,0 +1,16 @@
+{{ plug: 'head', title: "Registrieren bei ".config('title') }}
+
+<form action="/register" method="post">
+    <label for="email" class="required">E-Mail-Adresse</label>
+    <input type="email" id="email" name="identifier" required minlength="6" maxlength="50">
+
+    {{ each: unstatic(resolve(\PXP\Auth\Models\Identity::class))->nameColumns() as $column => $label }}
+        <label for="{{ $column }}" class="required">{{ $label }}</label>
+        <input type="text" id="{{ $column }}" name="{{ $column }}" required minlength="3" maxlength="40">
+    {{ each; }}
+
+    <label for="password" class="required">Passwort</label>
+    <input type="password" id="password" name="secret" required minlength="8" maxlength="100">
+
+    <button type="submit" class="btn mt-2">Login</button>
+</form>

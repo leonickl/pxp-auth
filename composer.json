@@ -1,0 +1,30 @@
+{
+    "name": "leonickl/pxp-auth",
+    "description": "Authentication for PXP",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "PXP\\Auth\\": "src/"
+        },
+        "files": [
+            "functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Leo Nickl",
+            "email": "leo@leonickl.de"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "nesbot/carbon": "^3.11",
+        "leonickl/pxp-core": "*"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.24",
+        "phpstan/phpstan": "^2.1"
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}

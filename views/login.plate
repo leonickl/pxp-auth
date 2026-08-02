@@ -1,0 +1,11 @@
+{{ plug: 'head', title: "Anmelden bei ".config('title') }}
+
+<form action="/login" method="post">
+    <label for="email" class="required">E-Mail-Adresse</label>
+    <input type="email" id="email" name="identifier" required>
+
+    <label for="password" class="required">Passwort</label>
+    <input type="password" id="password" name="secret" required>
+
+    <button type="submit" class="btn mt-2">Login</button>
+</form>
