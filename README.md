@@ -4,14 +4,23 @@ Authentication for [https://github.com/leonickl/pxp](leonickl/pxp).
 
 ## Install and Register
 
-Install it with `composer require leonickl/pxp-auth`.
+Install it with `composer require leonickl/pxp-auth` and register the module in your `config.php`:
+
+```php
+[
+    'modules' => [
+        'auth' => 'leonickl/pxp-auth',
+    ],
+]
+```
+
 Then, register a user model. It must extend `PXP\Auth\Models\Identity`. You can use `PXP\Auth\Models\User` or define your own model and register it in `config.php` as follows:
 
 ```php
 use App\Models\User;
 use PXP\Auth\Models\Identity;
 
-return [
+[
     'resolver' => [
         Identity::class => User::class,
     ],
@@ -23,7 +32,7 @@ return [
 By default, the `users` table has one single `name` field. If you want to customize this, adjust your `config.php`:
 
 ```php
-return [
+[
     'auth' => [
         'name-columns' => [
             'first_name' => 'First Name',
