@@ -1,6 +1,6 @@
 {{ plug: 'head', title: "Registrieren bei ".config('title') }}
 
-<form action="/register" method="post">
+<form action="{{ route('register') }}" method="post">
     <label for="email" class="required">E-Mail-Adresse</label>
     <input type="email" id="email" name="identifier" required minlength="6" maxlength="50">
 

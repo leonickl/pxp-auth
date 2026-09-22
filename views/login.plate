@@ -1,6 +1,6 @@
 {{ plug: 'head', title: "Anmelden bei ".config('title') }}
 
-<form action="/login" method="post">
+<form action="{{ route('login') }}" method="post">
     <label for="email" class="required">E-Mail-Adresse</label>
     <input type="email" id="email" name="identifier" required>
 
