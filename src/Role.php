@@ -21,14 +21,14 @@ readonly class Role
 
     public static function __callStatic(string $name, array $args)
     {
-        if (array_key_exists($name, self::ROLES)) {
-            return new self(self::ROLES[$name]);
+        if (array_key_exists($name, self::roles())) {
+            return new self(self::roles()[$name]);
         }
     }
 
     private static function tryFrom(?int $level): ?self
     {
-        if (in_array($level, self::ROLES)) {
+        if (in_array($level, self::roles())) {
             return new self($level);
         }
 
@@ -42,7 +42,7 @@ readonly class Role
 
     public function name(): string
     {
-        return array_search($this->role, self::ROLES);
+        return array_search($this->role, self::roles());
     }
 
     public function equals(self $other): bool
