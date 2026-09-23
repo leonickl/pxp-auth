@@ -24,20 +24,28 @@ readonly class Role
         if (array_key_exists($name, self::roles())) {
             return new self(self::roles()[$name]);
         }
+
+        throw new RuntimeException("Invalid static method call '$name'");
     }
 
-    private static function tryFrom(?int $level): ?self
+    public static function try(?int $level): ?self
     {
         if (in_array($level, self::roles())) {
             return new self($level);
         }
 
+
         return null;
+    }
+
+    public static function valid(?int $level): bool
+    {
+        return self::try($level) !== null;
     }
 
     public static function make(int $level): self
     {
-        return self::tryFrom($level) ?? self::DEFAULT();
+        return self::try($level) ?? self::DEFAULT();
     }
 
     public function name(): string
