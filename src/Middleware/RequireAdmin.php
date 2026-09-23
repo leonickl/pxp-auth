@@ -6,7 +6,7 @@ use PXP\Auth\Auth;
 use PXP\Exceptions\UnauthorizedException;
 use PXP\Http\Middleware\Middleware;
 use PXP\Http\Response\View;
-use PXP\Roles\Role;
+use PXP\Auth\Role;
 
 class RequireAdmin extends Middleware
 {
