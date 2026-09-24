@@ -17,6 +17,7 @@ class RegisterController extends Controller
     {
         return view('register', [
             'nameColumns' => unstatic(resolve(Identity::class))->nameColumns(),
+            'passkeys' => config('auth.relying-party') !== null,
         ]);
     }
 

@@ -21,7 +21,9 @@ class LoginController extends Controller
             return Redirect::route('main');
         }
 
-        return view('login');
+        return view('login', [
+            'passkeys' => config('auth.relying-party') !== null,
+        ]);
     }
 
     public function login(): Response

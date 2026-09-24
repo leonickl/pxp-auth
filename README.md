@@ -42,6 +42,30 @@ By default, the `users` table has one single `name` field. If you want to custom
 ]
 ```
 
+## Setup roles
+
+By default, users have the two available roles "regular" (0) and "admin" (1), but you can configure own roles, their levels, and labels in `config.php` if you like:
+
+```php
+[
+    'auth' => [
+        'roles' => [
+            'levels' => [
+                'REGULAR' => 0,
+                'ORGA' => 1,
+                'ADMIN' => 2,
+            ],
+
+            'labels' => [
+                'REGULAR' => 'User',
+                'ORGA' => 'Organiser',
+                'ADMIN' => 'Admin',
+            ],
+        ],
+    ],
+]
+```
+
 ## Migrate
 
 Finally, in `migrate.php`, define proper migrations like
@@ -102,4 +126,67 @@ use PXP\Auth\Middleware\VerifiedEmail;
 Route::get('/my')->do(MyController::class, 'index')->name('my')
     ->middleware(InteractiveAuth::class)
     ->middleware(VerifiedEmail::class);
+```
+
+## Configure mail server
+
+Configure the SMTP server in `config.php`, so that the app can send verification emails to the users.
+
+```php
+[
+    'mail' => (object) [
+        'host' => env('MAIL_HOST'),
+        'user' => env('MAIL_USER'),
+        'pass' => env('MAIL_PASS'),
+        'port' => env('MAIL_PORT'),
+    ],
+]
+```
+
+## Passkeys
+
+You may add passkey support. Therefore, fill in the following config values:
+
+```php
+[
+    'auth' => [
+        'relying-party' => [
+            'name' => 'Merch',
+            'id' => env('RELYING_PARTY', 'localhost'),
+        ],
+    ],
+]
+```
+
+Then, add some additional routes to `routes.php`:
+
+```php
+Route::get('/auth/register-passkey')->do(RegisterController::class, 'passkeyForm')
+    ->name('register-passkey-form');
+Route::post('/auth/register-passkey-args')->do(RegisterController::class, 'registerPasskeyArgs')
+    ->name('register-passkey-args');
+Route::post('/auth/register-passkey')->do(RegisterController::class, 'registerPasskey')
+    ->name('register-passkey');
+
+Route::post('/auth/validate-passkey-args')->do(LoginController::class, 'validatePasskeyArgs')
+    ->name('validate-passkey-args');
+Route::post('/auth/validate-passkey')->do(LoginController::class, 'validatePasskey')
+    ->name('validate-passkey');
+
+```
+
+Finally, ensure you have a route to serve javascript files and register the `passkey` script in the config file:
+
+```php
+use PXP\Http\Controllers\AssetController;
+
+Route::get('/js/{file}')->do(AssetController::class, 'js')->name('js');
+```
+
+```php
+[
+    'js' => [
+        'passkey',
+    ],
+]
 ```

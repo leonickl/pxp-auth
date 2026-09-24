@@ -9,44 +9,48 @@
 
     <div class="row">
         <button type="submit" class="btn mt-2">Login</button>
-        <button type="button" class="btn secondary mt-2" id="login-passkey">Login with Passkey</button>
+
+        {{ if: $passkeys }}
+            <button type="button" class="btn secondary mt-2" id="login-passkey">Login with Passkey</button>
+        {{ if; }}
     </div>
 </form>
 
+{{ if: $passkeys }}
+    <script>
+        document.querySelector('#login-passkey').addEventListener('click', e => {
+            validateArgs()
+        })
 
-<script>
-    document.querySelector('#login-passkey').addEventListener('click', e => {
+        function validateArgs() {
+            fetcher("{{ route('validate-passkey-args') }}").then(async (res) => {
+                if (res.error) {
+                    console.error(res.error)
+                    return
+                }
+
+                base64ToArrayBuffer(res)
+                validate(await navigator.credentials.get(res))
+            })
+        }
+
+        function validate(cred) {
+            fetcher("{{ route('validate-passkey') }}", {
+                id : cred.rawId ? arrayBufferToBase64(cred.rawId) : null,
+                client : cred.response.clientDataJSON ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
+                auth : cred.response.authenticatorData ? arrayBufferToBase64(cred.response.authenticatorData) : null,
+                sig : cred.response.signature ? arrayBufferToBase64(cred.response.signature) : null,
+                user : cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
+            }).then(res => {
+                if (res.status === 'ok') {
+                    window.location.href = "{{ route('main') }}"
+                    return
+                }
+
+                console.error(res)
+            })
+        }
+
         validateArgs()
-    })
-
-    function validateArgs() {
-        fetcher("{{ route('validate-passkey-args') }}").then(async (res) => {
-            if (res.error) {
-                console.error(res.error)
-                return
-            }
-
-            base64ToArrayBuffer(res)
-            validate(await navigator.credentials.get(res))
-        })
-    }
-
-    function validate(cred) {
-        fetcher("{{ route('validate-passkey') }}", {
-            id : cred.rawId ? arrayBufferToBase64(cred.rawId) : null,
-            client : cred.response.clientDataJSON ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
-            auth : cred.response.authenticatorData ? arrayBufferToBase64(cred.response.authenticatorData) : null,
-            sig : cred.response.signature ? arrayBufferToBase64(cred.response.signature) : null,
-            user : cred.response.userHandle ? arrayBufferToBase64(cred.response.userHandle) : null
-        }).then(res => {
-            if (res.status === 'ok') {
-                window.location.href = "{{ route('main') }}"
-                return
-            }
-
-            console.error(res)
-        })
-    }
-
-    validateArgs()
-</script>
+    </script>
+{{ if; }}
