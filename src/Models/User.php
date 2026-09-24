@@ -3,8 +3,8 @@
 namespace PXP\Auth\Models;
 
 use Override;
-use PXP\Auth\Role;
 use PXP\Auth\Lib\Mail;
+use PXP\Auth\Role;
 use PXP\Ds\Obj;
 use PXP\Lib\Notification;
 
@@ -112,7 +112,7 @@ class User extends Identity
 
         new Mail(
             subject: 'E-Mail-Adresse verifizieren',
-            body: "Klicke bitte auf den folgenden Link, um deine E-Mail-Adresse ".
+            body: 'Klicke bitte auf den folgenden Link, um deine E-Mail-Adresse '.
                 "zu verifizieren: <a href=\"$link\">$link</a>. Er ist 15 Minuten gültig.",
             html: true,
         )

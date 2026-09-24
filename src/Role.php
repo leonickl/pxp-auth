@@ -34,7 +34,6 @@ readonly class Role
             return new self($level);
         }
 
-
         return null;
     }
 

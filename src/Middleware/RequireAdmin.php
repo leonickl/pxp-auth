@@ -3,10 +3,10 @@
 namespace PXP\Auth\Middleware;
 
 use PXP\Auth\Auth;
+use PXP\Auth\Role;
 use PXP\Exceptions\UnauthorizedException;
 use PXP\Http\Middleware\Middleware;
 use PXP\Http\Response\View;
-use PXP\Auth\Role;
 
 class RequireAdmin extends Middleware
 {

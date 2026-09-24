@@ -12,5 +12,8 @@
     <label for="password" class="required">Passwort</label>
     <input type="password" id="password" name="secret" required minlength="8" maxlength="100">
 
-    <button type="submit" class="btn mt-2">Login</button>
+    <div class="row mt-2">
+        <button type="submit" class="btn">Register</button>
+        <a href="{{ route('register-passkey-form') }}" class="btn secondary">Register with Passkey</a>
+    </div>
 </form>

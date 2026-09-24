@@ -1,0 +1,69 @@
+<div id="passkey-error" class="notification warn hidden">
+    <p class="m-0 p-0">{{ $notification->content }}</p>
+</div>
+
+{{ plug: 'head', title: "Mit Passkey registrieren bei ".config('title') }}
+
+<form id="passkey-form">
+    <label for="email" class="required">E-Mail-Adresse</label>
+    <input type="email" id="email" name="identifier" required minlength="6" maxlength="50">
+
+    {{ each: $nameColumns as $column => $label }}
+        <label for="{{ $column }}" class="required">{{ $label }}</label>
+        <input type="text" id="{{ $column }}" name="{{ $column }}" required minlength="3" maxlength="40">
+    {{ each; }}
+
+    <div class="row items-center mt-2">
+        <button type="button" id="register-passkey" class="btn">Register with Passkey</button>
+        <a class="btn secondary" style="height: min-content" href="{{ route('register') }}">Stattdessen mit Passwort registrieren</a>
+    </div>
+</form>
+
+<script>
+    document.querySelector('#register-passkey').addEventListener('click', registerPasskey)
+
+    async function registerPasskey() {
+        const error = document.querySelector('#passkey-error')
+
+        fetcher("{{ route('register-passkey-args') }}", {
+            identifier: document.querySelector('#email').value,
+
+            {{ each: $nameColumns as $column => $label }}
+                "{{ $column }}": document.querySelector('#{{ $column }}').value,
+            {{ each; }}
+        }).then(async (res) => {
+            if (res.error) {
+                error.querySelector('p').textContent = res.error
+                error.classList.remove('hidden')
+                return
+            }
+
+            base64ToArrayBuffer(res)
+
+            const cred = await navigator.credentials.create(res)
+
+            const result = await fetcher("{{ route('register-passkey') }}", {
+                transport: cred.response.getTransports ? cred.response.getTransports() : null,
+                client: cred.response.clientDataJSON ? arrayBufferToBase64(cred.response.clientDataJSON) : null,
+                attest: cred.response.attestationObject ? arrayBufferToBase64(cred.response.attestationObject) : null
+            })
+
+            if (result.status === 'ok') {
+                window.location.href = "{{ route('login') }}"
+                return
+            }
+
+            error.querySelector('p').textContent = result.error || 'Passkey-Registrierung fehlgeschlagen'
+            error.classList.remove('hidden')
+        }).catch(e => {
+            error.querySelector('p').textContent = e.message || 'Passkey-Registrierung fehlgeschlagen'
+            error.classList.remove('hidden')
+        })
+    }
+</script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>

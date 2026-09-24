@@ -5,7 +5,6 @@ namespace PXP\Auth\Lib;
 use Exception;
 use PHPMailer\PHPMailer\Exception as PHPMailerException;
 use PHPMailer\PHPMailer\PHPMailer;
-use PXP\Lib\Log;
 
 readonly class Mail
 {
@@ -48,9 +47,9 @@ readonly class Mail
         try {
             $mailer->send();
 
-            Log::log("Sent mail '$this->subject' to '$address'");
+            info("Sent mail '$this->subject' to '$address'");
         } catch (PHPMailerException) {
-            Log::log("E-Mail to '$address' could not be sent. Mailer Error: {$mailer->ErrorInfo}");
+            info("E-Mail to '$address' could not be sent. Mailer Error: {$mailer->ErrorInfo}");
 
             throw new Exception("E-Mail to '$address' could not be sent");
         }
