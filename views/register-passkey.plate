@@ -1,5 +1,5 @@
-<div id="passkey-error" class="notification warn hidden">
-    <p class="m-0 p-0">{{ $notification->content }}</p>
+<div id="error" class="notification warn hidden">
+    <p class="m-0 p-0"></p>
 </div>
 
 {{ plug: 'head', title: "Mit Passkey registrieren bei ".config('title') }}
@@ -20,11 +20,11 @@
 </form>
 
 <script>
+    const error = document.querySelector('#error')
+
     document.querySelector('#register-passkey').addEventListener('click', registerPasskey)
 
     async function registerPasskey() {
-        const error = document.querySelector('#passkey-error')
-
         fetcher("{{ route('register-passkey-args') }}", {
             identifier: document.querySelector('#email').value,
 
