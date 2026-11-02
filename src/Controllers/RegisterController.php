@@ -9,7 +9,6 @@ use PXP\Http\Controllers\Controller;
 use PXP\Http\Response\Redirect;
 use PXP\Http\Response\Response;
 use PXP\Lib\Notification;
-use RuntimeException;
 
 class RegisterController extends Controller
 {
