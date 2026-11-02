@@ -19,6 +19,7 @@ Command::new('create:user', function (string ...$args) {
         email: $args[$nameCount],
         password_hash: password_hash($args[$nameCount + 1], PASSWORD_DEFAULT),
         role: (int) ($args[$nameCount + 2] ?? '0'),
+        verified: true,
     );
 
     echo "created user with id $user->id\n";
