@@ -3,9 +3,9 @@
 namespace PXP\Auth\Services;
 
 use PXP\Auth\Auth;
+use PXP\Auth\Models\AuthToken;
 use PXP\Auth\Models\User;
 use RuntimeException;
-use PXP\Auth\Models\AuthToken;
 
 class RememberSessionService
 {

@@ -19,7 +19,7 @@ class Auth
         if (! $service->validate($request)) {
             return false;
         }
-         
+
         $service->login($request->identifier);
 
         if ($remember) {

@@ -11,7 +11,6 @@ use PXP\Http\Controllers\Controller;
 use PXP\Http\Response\Redirect;
 use PXP\Http\Response\Response;
 use PXP\Lib\Notification;
-use PXP\Auth\Services\RememberSessionService;
 
 class LoginController extends Controller
 {
