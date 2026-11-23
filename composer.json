@@ -19,7 +19,7 @@
     "require": {
         "phpmailer/phpmailer": "^7.0",
         "nesbot/carbon": "^3.11",
-        "leonickl/pxp-core": "^v5.7",
+        "leonickl/pxp-core": "^v5.13",
         "lbuchs/webauthn": "^2.2"
     },
     "require-dev": {

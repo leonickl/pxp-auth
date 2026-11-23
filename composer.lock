@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6aeeb674833b143198f2689e898e3211",
+    "content-hash": "265400b12d2f5104de46ddd55bda8b57",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -129,16 +129,16 @@
         },
         {
             "name": "leonickl/plate",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leonickl/plate.git",
-                "reference": "b59a7b5dc97b1bf88b1a9c66b32b672338887460"
+                "reference": "425c7eef4f14d6d5a18bed4d253e828f749b8e85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leonickl/plate/zipball/b59a7b5dc97b1bf88b1a9c66b32b672338887460",
-                "reference": "b59a7b5dc97b1bf88b1a9c66b32b672338887460",
+                "url": "https://api.github.com/repos/leonickl/plate/zipball/425c7eef4f14d6d5a18bed4d253e828f749b8e85",
+                "reference": "425c7eef4f14d6d5a18bed4d253e828f749b8e85",
                 "shasum": ""
             },
             "require": {
@@ -146,6 +146,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "functions.php"
+                ],
                 "psr-4": {
                     "LeoNickl\\Plate\\": "src/"
                 }
@@ -160,23 +163,23 @@
             "description": "A PHP templating engine",
             "support": {
                 "issues": "https://github.com/leonickl/plate/issues",
-                "source": "https://github.com/leonickl/plate/tree/v2.1.0"
+                "source": "https://github.com/leonickl/plate/tree/v2.2.0"
             },
-            "time": "2026-10-29T21:44:44+00:00",
-            "published-time": "2026-10-29T21:46:10+00:00"
+            "time": "2026-11-23T08:53:38+00:00",
+            "published-time": "2026-11-23T08:54:43+00:00"
         },
         {
             "name": "leonickl/pxp-core",
-            "version": "v5.12.1",
+            "version": "v5.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leonickl/pxp-core.git",
-                "reference": "8f440c345d403e222c6f3d64fafdadf7c3dc2492"
+                "reference": "cd0ee43006239cdd72dc351aea95e872696a81c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leonickl/pxp-core/zipball/8f440c345d403e222c6f3d64fafdadf7c3dc2492",
-                "reference": "8f440c345d403e222c6f3d64fafdadf7c3dc2492",
+                "url": "https://api.github.com/repos/leonickl/pxp-core/zipball/cd0ee43006239cdd72dc351aea95e872696a81c4",
+                "reference": "cd0ee43006239cdd72dc351aea95e872696a81c4",
                 "shasum": ""
             },
             "require": {
@@ -208,10 +211,10 @@
             "description": "Core functionality for leonickl/pxp",
             "support": {
                 "issues": "https://github.com/leonickl/pxp-core/issues",
-                "source": "https://github.com/leonickl/pxp-core/tree/v5.12.1"
+                "source": "https://github.com/leonickl/pxp-core/tree/v5.13.0"
             },
-            "time": "2026-11-21T10:25:44+00:00",
-            "published-time": "2026-11-21T10:25:55+00:00"
+            "time": "2026-11-23T08:55:03+00:00",
+            "published-time": "2026-11-23T08:55:39+00:00"
         },
         {
             "name": "nesbot/carbon",
