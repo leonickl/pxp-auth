@@ -24,3 +24,11 @@ Command::new('create:user', function (string ...$args) {
 
     echo "created user with id $user->id\n";
 });
+
+Command::new('auth:publish-migrations', function () {
+    foreach (scandir('./migrations') as $file) {
+        if (str_ends_with($file, '.php')) {
+            copy($file, path('migrations'));
+        }
+    }
+});
