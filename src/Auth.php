@@ -13,7 +13,8 @@ class Auth
 {
     public static function login(Obj $request): bool
     {
-        $identity = unstatic(resolve(Identity::class))->search($request->identifier);
+        $identity = unstatic(resolve(Identity::class))
+            ->search($request->identifier);
 
         if ($identity === null) {
             return false;
