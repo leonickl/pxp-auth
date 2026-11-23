@@ -6,6 +6,6 @@ use PXP\Data\Migrations\Migration;
 return new Migration(function (DB $db) {
     $db->create('verification_link', [
         'token' => 'string not null',
-        'user_id' => 'int references user(id)',
+        'user_id' => 'int not null references user(id)',
     ]);
 });
