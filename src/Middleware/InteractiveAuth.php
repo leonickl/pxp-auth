@@ -10,7 +10,7 @@ class InteractiveAuth extends Middleware
     public function apply(): true|View
     {
         return auth() ? true : view('login', [
-            'errors' => session()->take('errors', []),
+            'passkeys' => config('auth.relying-party') !== null,
         ]);
     }
 }
