@@ -16,6 +16,7 @@ class Auth
 
         if ($service->validate($request)) {
             $service->login($request);
+
             return true;
         }
 

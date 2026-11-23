@@ -2,11 +2,10 @@
 
 namespace PXP\Auth\Middleware;
 
-use PXP\Auth\Services\RememberSessionService;
-use PXP\Data\Query\Select;
-use PXP\Http\Middleware\Middleware;
-use PXP\Auth\Models\AuthToken;
 use PXP\Auth\Auth;
+use PXP\Auth\Models\AuthToken;
+use PXP\Auth\Services\RememberSessionService;
+use PXP\Http\Middleware\Middleware;
 
 /**
  * Checks whether a valid remember token exists
@@ -27,10 +26,12 @@ class RememberSession extends Middleware
 
         if ($token?->isValid($cookie->validator)) {
             $service->login($token);
+
             return true;
         }
 
         $service->destroySession();
+
         return true;
     }
 }
