@@ -5,7 +5,6 @@ namespace PXP\Auth\Models;
 use Override;
 use PXP\Auth\Lib\Mail;
 use PXP\Auth\Role;
-use PXP\Ds\Obj;
 use PXP\Lib\Notification;
 
 /**
@@ -34,7 +33,7 @@ class User extends Identity
         return config('auth.name-columns', ['name' => 'Name']);
     }
 
-    protected static function nameAttributes(Obj $req): Obj
+    protected static function nameAttributes(object $req): object
     {
         $attributes = [];
 
@@ -42,11 +41,11 @@ class User extends Identity
             $attributes[$column] = $req->{$column};
         }
 
-        return o(...$attributes);
+        return (object) $attributes;
     }
 
     #[Override]
-    public static function make(Obj $req): static
+    public static function make(object $req): static
     {
         $user = static::create(
             ...static::nameAttributes($req),
@@ -75,7 +74,7 @@ class User extends Identity
     }
 
     #[Override]
-    public function authenticate(Obj $req): bool
+    public function authenticate(object $req): bool
     {
         return password_verify($req->secret, $this->secret());
     }

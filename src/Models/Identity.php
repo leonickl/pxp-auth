@@ -3,19 +3,18 @@
 namespace PXP\Auth\Models;
 
 use PXP\Data\Model;
-use PXP\Ds\Obj;
 
 abstract class Identity extends Model
 {
     abstract public static function search(string $identifier): ?static;
 
-    abstract public static function make(Obj $req): static;
+    abstract public static function make(object $req): static;
 
     abstract public function identifier(): string;
 
     abstract public function secret(): ?string;
 
-    abstract public function authenticate(Obj $req): bool;
+    abstract public function authenticate(object $req): bool;
 
     abstract public function name(): string;
 

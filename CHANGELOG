@@ -1,0 +1,2 @@
+- FEATURE: can now remember sessions
+- BREAKING: replaced Obj by simple object in whole package

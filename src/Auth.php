@@ -2,8 +2,7 @@
 
 namespace PXP\Auth;
 
-use PXP\Auth\Models\Identity;
-use PXP\Ds\Obj;
+use PXP\Auth\Services\AuthService;
 
 /**
  * Facade for interactive authentication.
@@ -11,39 +10,30 @@ use PXP\Ds\Obj;
  */
 class Auth
 {
-    public static function login(Obj $request): bool
+    public static function login(object $request): bool
     {
-        $identity = unstatic(resolve(Identity::class))
-            ->search($request->identifier);
+        $service = new AuthService;
 
-        if ($identity === null) {
-            return false;
+        if ($service->validate($request)) {
+            $service->login($request);
+            return true;
         }
 
-        if (! $identity->authenticate($request)) {
-            return false;
-        }
-
-        session_regenerate_id();
-        session(['identifier' => $request->identifier]);
-
-        return true;
+        return false;
     }
 
     public static function logout(): void
     {
-        session_destroy();
+        (new AuthService)->logout();
     }
 
     public static function auth(): bool
     {
-        return session('identifier') !== null;
+        return (new AuthService)->auth();
     }
 
     public static function user(): ?Identity
     {
-        return self::auth()
-            ? unstatic(resolve(Identity::class))->search(session('identifier'))
-            : null;
+        return (new AuthService)->user();
     }
 }
