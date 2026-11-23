@@ -26,9 +26,16 @@ Command::new('create:user', function (string ...$args) {
 });
 
 Command::new('auth:publish-migrations', function () {
-    foreach (scandir('./migrations') as $file) {
+    $source = path('migrations', module: 'auth');
+    $target = path('migrations');
+
+    if (! file_exists($target)) {
+        mkdir($target);
+    }
+
+    foreach (scandir($source) as $file) {
         if (str_ends_with($file, '.php')) {
-            copy($file, path('migrations'));
+            copy("$source/$file", "$target/$file");
         }
     }
 });
