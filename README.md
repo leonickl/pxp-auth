@@ -44,7 +44,7 @@ By default, the `users` table has one single `name` field. If you want to custom
 
 ## Setup roles
 
-By default, users have the two available roles "regular" (0) and "admin" (1), but you can configure own roles, their levels, and labels in `config.php` if you like:
+By default, users have the two available roles "regular" (0) and "admin" (1), but you can configure own roles, their levels, and labels in `config.php` if you like. The larger the corresponsing role number, the role should be more powerful.
 
 ```php
 [
@@ -68,44 +68,29 @@ By default, users have the two available roles "regular" (0) and "admin" (1), bu
 
 ## Migrate
 
-Finally, in `migrate.php`, define proper migrations like
-
-```php
-$db->create('users', [
-    'email' => 'text not null',
-    'password_hash' => 'text not null',
-    'role' => 'int not null default 0',
-    'name' => "string not null default ''",
-    'verified' => 'int not null default 0',
-]);
-
-$db->sql('create unique index if not exists '.
-    'unique_users_email on users(email)');
-
-$db->create('verification_link', [
-    'token' => 'string not null',
-    'user_id' => 'int references user(id)',
-]);
-```
-
-Then, migrate with `./run migrate`.
-
-Adjust the user definition to your model.
+Then, copy the package's migrations to your app's `migrations` directory with `./run auth:publish-migrations`. Adjust the user definition to your model (e.g., differing name fields).
 
 ## Add auth routes
 
 ```php
+use PXP\Auth\Middleware\InteractiveAuth;
 use PXP\Auth\Controllers\LoginController;
 use PXP\Auth\Controllers\RegisterController;
 use PXP\Auth\Controllers\VerificationController;
 
-Route::get('/auth/register')->do(RegisterController::class, 'form')->name('register');
-Route::post('/auth/register')->do(RegisterController::class, 'register');
+// remove this group if you do not want anyone
+// to be able to register themself
+Route::group(
+    Route::get('/auth/register')->do(RegisterController::class, 'form')->name('register'),
+    Route::post('/auth/register')->do(RegisterController::class, 'register'),
+);
 
 Route::get('/auth/verify')->do(VerificationController::class, 'verify')->name('verify');
 
-Route::get('/auth/login')->do(LoginController::class, 'form')->name('login');
-Route::post('/auth/login')->do(LoginController::class, 'login');
+Route::group(
+    Route::get('/auth/login')->do(LoginController::class, 'form')->name('login'),
+    Route::post('/auth/login')->do(LoginController::class, 'login'),
+);
 
 Route::group(
     Route::get('/auth/logout')->do(LoginController::class, 'logout')->name('logout'),
