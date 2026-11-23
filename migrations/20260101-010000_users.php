@@ -11,7 +11,4 @@ return new Migration(function (DB $db) {
         'name' => 'string not null',
         'verified' => 'int not null default 0',
     ]);
-
-    $db->sql('create unique index if not exists '.
-        'unique_users_email on users(email)');
 });
