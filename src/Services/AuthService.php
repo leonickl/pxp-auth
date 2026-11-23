@@ -38,6 +38,10 @@ class AuthService
 
     public function user(): ?Identity
     {
+        if (session('identifier') === null) {
+            return null;
+        }
+
         return unstatic(resolve(Identity::class))
             ->search(session('identifier'));
     }

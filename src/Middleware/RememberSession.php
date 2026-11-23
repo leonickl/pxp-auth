@@ -22,7 +22,7 @@ class RememberSession extends Middleware
         $service = new RememberSessionService;
 
         $cookie = $service->readCookie();
-        $token = AuthToken::forSelector($cookie->selector);
+        $token = AuthToken::forSelector($cookie?->selector);
 
         if ($token?->isValid($cookie->validator)) {
             $service->login($token);

@@ -31,7 +31,7 @@ class RegisterController extends Controller
     {
         $request = request()->validate(
             (new UserValidator)->validateRegister(...),
-        );
+        )->toObject();
 
         if (unstatic(resolve(Identity::class))->search($request->identifier) !== null) {
             Notification::warn('Benutzername/E-Mail-Adresse ist schon registriert.');
@@ -51,12 +51,11 @@ class RegisterController extends Controller
         $user = unstatic(resolve(Identity::class))->search($identifier);
 
         if ($user === null) {
-            $attributes = o(
+            $user = unstatic(resolve(Identity::class))->make(obj(
+                ...$this->names(),
                 identifier: $identifier,
                 secret: bin2hex(random_bytes(32)),
-            )->with(...$this->names());
-
-            $user = unstatic(resolve(Identity::class))->make($attributes);
+            ));
         }
 
         return new Passkeys()->registerArgs($user);

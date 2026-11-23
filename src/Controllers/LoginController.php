@@ -11,6 +11,7 @@ use PXP\Http\Controllers\Controller;
 use PXP\Http\Response\Redirect;
 use PXP\Http\Response\Response;
 use PXP\Lib\Notification;
+use PXP\Auth\Services\RememberSessionService;
 
 class LoginController extends Controller
 {
@@ -35,9 +36,11 @@ class LoginController extends Controller
 
         $request = request()->validate(
             (new UserValidator)->validateLogin(...),
-        );
+        )->toObject();
 
-        if (! Auth::login($request)) {
+        $remember = request()->bool('remember');
+
+        if (! Auth::login($request, remember: $remember)) {
             Notification::warn('Ungültige Zugangsdaten gegeben.');
 
             return Redirect::route('login');

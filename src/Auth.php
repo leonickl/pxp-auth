@@ -4,6 +4,7 @@ namespace PXP\Auth;
 
 use PXP\Auth\Models\Identity;
 use PXP\Auth\Services\AuthService;
+use PXP\Auth\Services\RememberSessionService;
 
 /**
  * Facade for interactive authentication.
@@ -11,22 +12,27 @@ use PXP\Auth\Services\AuthService;
  */
 class Auth
 {
-    public static function login(object $request): bool
+    public static function login(object $request, bool $remember): bool
     {
         $service = new AuthService;
 
-        if ($service->validate($request)) {
-            $service->login($request->identifier);
+        if (! $service->validate($request)) {
+            return false;
+        }
+         
+        $service->login($request->identifier);
 
-            return true;
+        if ($remember) {
+            (new RememberSessionService)->rememberSession();
         }
 
-        return false;
+        return true;
     }
 
     public static function logout(): void
     {
         (new AuthService)->logout();
+        (new RememberSessionService)->destroySession();
     }
 
     public static function auth(): bool

@@ -15,9 +15,13 @@ class AuthToken extends Model
 {
     protected string $table = 'auth_tokens';
 
-    public static function forSelector(string $selector): ?self
+    public static function forSelector(?string $selector): ?self
     {
-        return self::query()
+        if ($selector === null) {
+            return null;
+        }
+
+        return self::select()
             ->whereIs('selector', $selector)
             ->where('expires', '>=', date('Y-m-d H:i:s'))
             ->get()

@@ -11,6 +11,11 @@
     <label for="password" class="required">Passwort</label>
     <input type="password" id="password" name="secret" required>
 
+    <label for="remember">
+        Remember me
+        <input type="checkbox" name="remember" id="remember" style="margin-left: 1rem" />
+    </label>
+
     <div class="row">
         <button type="submit" class="btn mt-2">Login</button>
 
