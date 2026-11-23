@@ -2,6 +2,7 @@
 
 namespace PXP\Auth;
 
+use PXP\Auth\Models\Identity;
 use PXP\Auth\Services\AuthService;
 
 /**
@@ -15,7 +16,7 @@ class Auth
         $service = new AuthService;
 
         if ($service->validate($request)) {
-            $service->login($request);
+            $service->login($request->identifier);
 
             return true;
         }
